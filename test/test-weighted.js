@@ -13,7 +13,7 @@ describe('weighted graph-specific tests', function () {
         }, true);
 
         // Check that the weight between 'A' and 'B' is 10.
-        assert(g.weightOfPath('A', 'B') === 10);
+        assert(g.findPath('A', 'B') === 10);
     });
 
     it('should be create a weighted graph for truthy values', function () {
@@ -28,7 +28,7 @@ describe('weighted graph-specific tests', function () {
             }, truth);
 
             // Check that the weight between 'A' and 'B' is 10.
-            assert(g.weightOfPath('A', 'B') === 10);
+            assert(g.findPath('A', 'B') === 10);
         });
     });
 
@@ -44,7 +44,7 @@ describe('weighted graph-specific tests', function () {
             }, falsy);
 
             // Check that the weight between 'A' and 'B' is 10.
-            assert(g.weightOfPath('A', 'B') === -1);
+            assert(g.findPath('A', 'B') === -1);
         });
     });
 
@@ -53,17 +53,8 @@ describe('weighted graph-specific tests', function () {
         var weight_calc = {
 
             calculator: function (edge) {
-
-                // This assertion should be called
                 assert(true);
-                
-                // The imaginary weights in this scenareo are based on
-                // age and weight (which are summed) by this callback.
-
                 edge = (edge instanceof Array) ? edge[0] : edge;
-
-                // Business logic makes sure 'age' and 'weight' exist for each
-                // edge (in the required 'cost' field for each node.
                 return (edge.weight.age + 2) + edge.weight.height;
             }
         };
@@ -71,10 +62,14 @@ describe('weighted graph-specific tests', function () {
         var g = new Graph({
             nodes: [ { name: 'A' }, { name: 'B' } ],
             edges: [ 
-                { name: 'A->B', from: 'A', to: 'B', weight: { age: 3, height: 5 } }
+                { 
+                    name: 'A->B', 
+                    from: 'A', to: 'B', 
+                    weight: { age: 3, height: 5 }
+                }
             ]
-        }, weight_calc);
+        }, weight_calc); // <-- object containing the special 'calculator' fn
 
-        assert(g.weightOfPath('A', 'B') === 10);
+        assert(g.findPath('A', 'B') === 10);
     });
 });
