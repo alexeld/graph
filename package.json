@@ -24,6 +24,10 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "JSV": "~4.0.2"
+    "JSV": "~4.0.2",
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "lodash": "~2.4.1"
   }
 }
